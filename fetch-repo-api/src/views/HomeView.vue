@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <RepoFilter :languages="languages" @search="handleSearch" @filter="handleFilter"/>
     <RepoList :repositories="filteredRepositories"/>
     <Pagination :currentPage="currentPage" :hasMore="hasMore" @prevPage="prevPage" @nextPage="nextPage"/>
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      username: 'umarfaroukpa', // Replace with your GitHub username
+      username: 'umarfaroukpa', 
       repositories: [],
       currentPage: 1,
       perPage: 5,
@@ -59,7 +59,9 @@ export default {
       try {
         const response = await fetchRepositories(this.username, this.currentPage, this.perPage);
         this.repositories = response.data;
-        this.totalCount = parseInt(response.headers['x-total-count'], 5);
+        this.totalCount = parseInt(response.headers['x-total-count'])
+          ? parseInt(response.headers['x-total-count'], 5)
+          : this.currentPage * this.perPage + this.repositories.length;
       } catch (error) {
         console.error(error);
       }
@@ -78,10 +80,37 @@ export default {
     },
     handleSearch(query) {
       this.searchQuery = query;
+      this.currentPage = 1;
+      this.fetchRepos();
     },
     handleFilter(language) {
       this.filterLanguage = language;
+      this.currentPage = 1;
+      this.fetchRepos();
     }
   }
 };
 </script>
+
+<style scoped>
+.home {
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.2em;
+  }
+}
+</style>

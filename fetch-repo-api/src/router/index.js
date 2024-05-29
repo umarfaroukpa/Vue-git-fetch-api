@@ -1,19 +1,30 @@
-import vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '..views/HomeView.vue';
-
-vue.use(VueRouter);
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '@/views/HomeView.vue';
+import SingleRepoView from '@/views/SingleRepoView.vue';
+import NotFound from '@/views/NotFoundView.vue'
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    }
+  {
+    path: '/',
+    name: 'Home',
+    component: HomeView
+  },
+  {
+    path: '/repo/:owner/:repo',
+    name: 'SingleRepo',
+    component: SingleRepoView,
+    props: route => ({ owner: route.params.owner, repo: route.params.repo })
+  },
+  {
+    path: '/:catchAll(.*)', 
+    name: 'NotFound',
+    component: NotFound
+  }
 ];
 
-const router = new VueRouter ({
-    routes
+const router = createRouter({
+  history: createWebHistory(),
+  routes
 });
 
-export default routes
+export default router;
