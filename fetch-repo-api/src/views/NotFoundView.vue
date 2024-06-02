@@ -20,16 +20,27 @@ export default {
 .not-found {
   text-align: center;
   margin-top: 50px;
+  color: whitesmoke;
 }
-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #42b883;
-  color: white;
-  border: none;
-  cursor: pointer;
+
+button{
+  background-color: #D0B8AC;
 }
+
 button:hover {
-  background-color: #38a169;
+  background-color: #87573f;
+}
+
+@media (max-width: 768px) {
+  .bio {
+    left: auto;
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
 }
 </style>

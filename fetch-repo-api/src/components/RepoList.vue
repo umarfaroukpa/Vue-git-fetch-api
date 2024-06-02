@@ -19,13 +19,36 @@ export default {
 
 <style scoped>
 .repo-list {
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  left: 360px;
+  width: 30vw;
+  border: solid 1px whitesmoke;
+  border-radius: 15px;
+  margin: 30px 0 40px;
+  padding: 20px;
+  
 }
+
 .repo-item {
   margin: 10px 0;
-  border: solid black 1px;
+  border: 1px solid whitesmoke;
+  border-radius: 8px;
   padding: 3px;
   cursor: pointer;
+  box-shadow: 0px 10px 20px -10px;
+  
+}
+
+@media (max-width: 768px) {
+  .repo-list {
+    left: auto;
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .repo-item{
+    box-shadow: none;
+  }
 }
 </style>

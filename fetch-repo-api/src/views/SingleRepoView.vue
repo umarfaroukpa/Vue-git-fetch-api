@@ -1,5 +1,13 @@
 <template>
+<div class="nav-link">
+   <div class="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/repos">Repositories</router-link>
+      <a href="#" @click.prevent="showAlert">Portfolio</a>
+    </div>
+</div>
   <div class="single-repo">
+    <h2> Single Repository Details</h2>
     <div v-if="repository">
       <h1>{{ repository.name }}</h1>
       <p>{{ repository.description }}</p>
@@ -20,6 +28,7 @@
 import axios from 'axios';
 
 export default {
+ name: 'SingleRepoView',
   props: {
     owner: {
       type: String,
@@ -45,37 +54,83 @@ export default {
         this.repository = response.data;
       } catch (error) {
         console.error('Error fetching repository details:', error);
-        this.repository = null; // Set repository to null to handle error state in the template
+        window.alert('Failed to load repository details. Due To Bad Network.');
+        this.repository = null; 
       }
     },
     goBack() {
       this.$router.push('/');
-    }
+    },
+     showAlert() {
+      window.alert('Coming Soon');
+    },
   }
 };
 </script>
 
 <style scoped>
 .single-repo {
+    width: 40vw;
   padding: 20px;
+  color: whitesmoke;
+  border: solid 1px;
+  border-radius: 20px;
+  border-bottom: 6px whitesmoke;
+  box-shadow: 0px 10px 20px -10px;
+  position: relative;
+  left: 300px;
+}
+
+.nav-link{
+  border-radius: 10px;
+  border: solid 1px whitesmoke;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  margin: -50px 0 30px;
+  
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+ 
 }
 button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #42b883;
-  color: white;
-  border: none;
+    background-color: #D0B8AC;
+}
+
+button :hover{
+  background-color: #87573f;
+}
+
+.single-repo a{
+  background-color: #D0B8AC;
+  color: whitesmoke;
+  margin: 5px;
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 7px;
+  border-bottom: whitesmoke solid 6px;
   cursor: pointer;
 }
-button:hover {
-  background-color: #38a169;
+
+.single-repo a:hover {
+  background-color: #87573f;
 }
-a {
-  background-color: #42b883;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 5px;
-  margin-right: 10px;
-  color: white;
+
+@media (max-width: 768px) {
+  .single-repo {
+    left: auto;
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

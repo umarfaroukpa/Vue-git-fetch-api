@@ -1,92 +1,34 @@
 <template>
   <div class="home">
-    <RepoFilter :languages="languages" @search="handleSearch" @filter="handleFilter"/>
-    <RepoList :repositories="filteredRepositories"/>
-    <Pagination :currentPage="currentPage" :hasMore="hasMore" @prevPage="prevPage" @nextPage="nextPage"/>
+    <div class="nav-link">
+      <div class="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/repos">Repositories</router-link>
+      <a href="#" @click.prevent="showAlert">Portfolio</a>
+    </div>
+    </div>
+    <div class="bio">
+     <div class="bio-cent">
+      <img src="/src/assets/IMG-20220705-WA0009-removebg-preview.png" alt="My-Pic" class="My-bio-image" />
+      <div class="bio-content">
+        <h3>Umar Farouk</h3>
+        <h4>Frontend Developer</h4>
+        <button>Contact Me</button>
+        <button>My CV</button>
+        <h5>My Skills: <br>React Nextjs Vuejs Typescript</h5>
+      </div>
+    </div>
+    </div>
   </div>
+  <div class="footer"><footer> Umar Farouk &copy;2024</footer></div>
 </template>
 
 <script>
-import { fetchRepositories } from '@/services/github';
-import RepoList from '@/components/RepoList.vue';
-import Pagination from '@/components/Pagination.vue';
-import RepoFilter from '@/components/RepoFilter.vue';
-
 export default {
-  components: {
-    RepoList,
-    Pagination,
-    RepoFilter
-  },
-  data() {
-    return {
-      username: 'umarfaroukpa', 
-      repositories: [],
-      currentPage: 1,
-      perPage: 5,
-      totalCount: 0,
-      searchQuery: '',
-      filterLanguage: ''
-    };
-  },
-  computed: {
-    filteredRepositories() {
-      let repos = this.repositories;
-
-      if (this.searchQuery) {
-        repos = repos.filter(repo => repo.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
-      }
-
-      if (this.filterLanguage) {
-        repos = repos.filter(repo => repo.language === this.filterLanguage);
-      }
-
-      return repos;
-    },
-    hasMore() {
-      return this.currentPage * this.perPage < this.totalCount;
-    },
-    languages() {
-      const allLanguages = this.repositories.map(repo => repo.language);
-      return [...new Set(allLanguages)].filter(Boolean);
-    }
-  },
-  created() {
-    this.fetchRepos();
-  },
+  name: 'HomeView',
   methods: {
-    async fetchRepos() {
-      try {
-        const response = await fetchRepositories(this.username, this.currentPage, this.perPage);
-        this.repositories = response.data;
-        this.totalCount = parseInt(response.headers['x-total-count'])
-          ? parseInt(response.headers['x-total-count'], 5)
-          : this.currentPage * this.perPage + this.repositories.length;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    prevPage() {
-      if (this.currentPage > 1) {
-        this.currentPage--;
-        this.fetchRepos();
-      }
-    },
-    nextPage() {
-      if (this.hasMore) {
-        this.currentPage++;
-        this.fetchRepos();
-      }
-    },
-    handleSearch(query) {
-      this.searchQuery = query;
-      this.currentPage = 1;
-      this.fetchRepos();
-    },
-    handleFilter(language) {
-      this.filterLanguage = language;
-      this.currentPage = 1;
-      this.fetchRepos();
+    showAlert() {
+      window.alert('Coming Soon');
     }
   }
 };
@@ -94,23 +36,105 @@ export default {
 
 <style scoped>
 .home {
+  text-align: center;
+  color: whitesmoke;
+}
+
+
+footer{
+  color: whitesmoke;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+ right: 0;
+}
+
+.nav-link{
+  border-radius: 10px;
+  border: solid 1px whitesmoke;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+ 
+}
+
+button{
+  background-color:  #D0B8AC;
+  color: whitesmoke;
+  margin: 5px;
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 7px;
+  border-bottom: whitesmoke solid 6px;
+  pointer: cursor;
+}
+
+button:hover{
+ background-color: #87573f;
+}
+
+
+.bio {
+  background-color: #D0B8AC;
+	border-radius: 5px;
+	box-shadow: 0px 10px 20px -10px;
+  color: whitesmoke;
+	position: relative;
+  left: 400px;
+  top: 15px;
+	width: 350px;
+	max-width: 100%;
   padding: 20px;
   text-align: center;
 }
 
-h1 {
-  font-size: 2em;
+
+.bio-content {
+  text-align: center;
+  margin-top: -18px;
+  margin-bottom: -25px;
 }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: 1.5em;
-  }
+img{
+  width: 250px;
+  height: 200px;
+  border: 1px solid whitesmoke;
+	border-radius: 50%;
+	padding: 7px;
 }
 
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.2em;
+
+
+@media (max-width: 600px) {
+
+  .home{
+    width: 100%;
+    height: 100%;
   }
+
+  .bio {
+    left: auto;
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .nav {
+    flex-direction: column;
+  }
+
+  footer{
+    margin-top: -100px;
+  }
+
 }
 </style>

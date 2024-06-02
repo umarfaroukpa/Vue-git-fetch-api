@@ -33,4 +33,35 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+button {
+  background-color: #D0B8AC;
+  color: whitesmoke;
+  margin: 5px;
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 7px;
+  border-bottom: whitesmoke solid 6px;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+span{
+  color: whitesmoke;
+}
+
+button:hover {
+  background-color: #87573f;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+  }
+  
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
 </style>
