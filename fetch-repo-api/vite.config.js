@@ -9,4 +9,8 @@ export default defineConfig({
     },
   },
   plugins: [vue()],
+  base: "/fetch-repo-api"
+
 });
+
+
