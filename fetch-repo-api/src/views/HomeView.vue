@@ -133,7 +133,7 @@ img{
   }
 
   footer{
-    margin-top: -100px;
+    margin-top: -65px;
   }
 
 }

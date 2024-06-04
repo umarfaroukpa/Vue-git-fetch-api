@@ -1,13 +1,11 @@
 {
-  "name": "fetch-repo-api",
-  "homepage": "https://{umarfaroukpa}.github.io/{fetch-repo-api}/",
+  "name": "vue-git-fetch-api",
+  "homepage": "https://{umarfaroukpa}.github.io/{vue-git-fetch-api}/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
